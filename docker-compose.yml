@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:password@db:5432/mydb
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:16
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

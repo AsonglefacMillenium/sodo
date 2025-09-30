@@ -3,9 +3,9 @@ import { useTasks } from "@/hooks/useTasks";
 import React, { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import TaskDetailsModal from "../task-details_modal.tsx/index.jsx";
+import TaskDetailsModal from "../task-details_modal";
 import { IoEyeOutline } from "react-icons/io5";
-import UpdateForm from "../update_form/index.jsx";
+import UpdateForm from "../update_form";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
